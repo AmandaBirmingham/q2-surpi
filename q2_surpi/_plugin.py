@@ -6,6 +6,11 @@ SAMPLE_ID_KEY = 'sample-id'
 TAXON_KEY = 'Taxon'
 
 
+def extract_test(test_df: pandas.DataFrame) -> \
+        (pandas.DataFrame, pandas.DataFrame):
+    return (test_df, test_df)
+
+
 # NB: Because there is a transformer on the plugin that can turn a
 # SurpiCountTable (which is what the plugin gets as its first
 # argument) into a pandas.DataFrame, and another that can turn a
@@ -13,8 +18,8 @@ TAXON_KEY = 'Taxon'
 # into a pandas.DataFrame, those transformations will be done
 # automagically and this will receive pandas.DataFrames as its arguments.
 def extract_surpi_data(
-        surpi_counts_df: pandas.DataFrame,
-        surpi_sample_info_df: pandas.DataFrame) -> \
+        surpi_output: pandas.DataFrame,
+        surpi_sample_info: pandas.DataFrame) -> \
         (pandas.DataFrame, pandas.DataFrame):
 
     """Turn SURPI data into a feature table dataframe and a taxonomy dataframe.
@@ -37,15 +42,15 @@ def extract_surpi_data(
     """
 
     # Generate the taxonomy result
-    taxonomy = surpi_counts_df[[FEATURE_ID_KEY]].copy()
-    taxonomy[TAXON_KEY] = "f__" + surpi_counts_df[FAMILY_KEY] + "; g__" + \
-                            surpi_counts_df[GENUS_KEY] + "; s__" + \
-                            surpi_counts_df[SPECIES_KEY] + ";"
+    taxonomy = surpi_output[[FEATURE_ID_KEY]].copy()
+    taxonomy[TAXON_KEY] = "f__" + surpi_output[FAMILY_KEY] + "; g__" + \
+                            surpi_output[GENUS_KEY] + "; s__" + \
+                            surpi_output[SPECIES_KEY] + ";"
     taxonomy = taxonomy.set_index(FEATURE_ID_KEY)
     taxonomy.index.name = 'Feature ID'
 
     # Generate the feature table
-    surpi_feature_table_df = surpi_counts_df.copy()
+    surpi_feature_table_df = surpi_output.copy()
     surpi_feature_table_df = surpi_feature_table_df.set_index(FEATURE_ID_KEY)
     surpi_feature_table_df = surpi_feature_table_df.T
     surpi_feature_table_df.index.name = BARCODE_KEY
@@ -56,7 +61,7 @@ def extract_surpi_data(
     # TODO: this is speculative code and may need to be adjusted; I don't
     #  know yet what the sample info looks like
     limited_sample_info_df = \
-        surpi_sample_info_df[[BARCODE_KEY, SAMPLE_NAME_KEY]]
+        surpi_sample_info[[BARCODE_KEY, SAMPLE_NAME_KEY]]
     surpi_feature_table_df = surpi_feature_table_df.merge(
         limited_sample_info_df, on=BARCODE_KEY, how='inner',
         validate='one_to_one')

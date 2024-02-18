@@ -1,10 +1,3 @@
-# single-file format for counttable
-# single file format for sample sheet
-# transformer to transform counttable to biom
-# transformer to transform sample sheet to dataframe
-# action taking in counttable format and sample sheet format,
-#  returning FeatureTable[Frequency]
-
 import pandas
 from qiime2.plugin import SemanticType, ValidationError
 import qiime2.plugin.model as model
@@ -32,7 +25,7 @@ class SurpiCountTableFormat(model.TextFileFormat):
         # for those that are fixed. Note that we don't validate the values in
         # the columns, as we don't know what they should be.
         with self.path.open("r") as f:
-            df = pandas.read_csv(f, header=1, sep='\t')
+            df = pandas.read_csv(f, header=0, sep='\t')
 
         if (len(df.columns) < 5) or (df.columns[0] != SPECIES_KEY) or \
                 (df.columns[1] != GENUS_KEY) or (df.columns[2] != FAMILY_KEY) \
@@ -66,3 +59,12 @@ class SurpiSampleSheetFormat(model.TextFileFormat):
 
         if len(df) == 0:
             raise ValidationError("Expected at least one row, but got none")
+
+
+SurpiCountTableDirectoryFormat = model.SingleFileDirectoryFormat(
+    'SurpiCountTableDirectoryFormat', 'surpi_output.counttable',
+    SurpiCountTableFormat)
+
+SurpiSampleSheetDirectoryFormat = model.SingleFileDirectoryFormat(
+    'SurpiSampleSheetDirectoryFormat', 'surpi_sample_info.txt',
+    SurpiSampleSheetFormat)

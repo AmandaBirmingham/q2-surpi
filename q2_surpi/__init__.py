@@ -1,7 +1,7 @@
-from ._plugin import extract_surpi_data
+from ._plugin import extract_surpi_data, extract_test
 from ._formats_and_types import (
-    SurpiCountTable, SurpiCountTableFormat,
-    SurpiSampleSheet)
+    SurpiCountTable, SurpiCountTableFormat, SurpiCountTableDirectoryFormat,
+    SurpiSampleSheet, SurpiSampleSheetFormat, SurpiSampleSheetDirectoryFormat)
 from . import _version
 __version__ = _version.get_versions()['version']
 
