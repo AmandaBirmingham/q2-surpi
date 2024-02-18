@@ -29,32 +29,31 @@ class TestSurpiCountTableFormat(TestPluginBase):
                 test_format.validate()
 
 
-# TODO: put back sample sheet format tests
-# class TestSurpiSampleSheetFormat(TestPluginBase):
-#     package = f'{__package_name__}.tests'
-#
-#     def test_surpisamplesheet_format_valid(self):
-#         filenames = ['surpi_sample_info.txt']
-#         filepaths = [self.get_data_path(filename)
-#                      for filename in filenames]
-#
-#         for filepath in filepaths:
-#             test_format = SurpiSampleSheetFormat(filepath, mode='r')
-#             test_format.validate()
-#
-#     def test_surpisamplesheet_format_invalid(self):
-#         filenames = [
-#             # empty
-#             'surpi_sample_info_empty.txt',
-#             # missing column "sample"
-#             'surpi_sample_info_missing_sample.txt',
-#             # missing column "barcode"
-#             'surpi_sample_info_missing_barcode.txt'
-#         ]
-#         filepaths = [self.get_data_path(filename)
-#                      for filename in filenames]
-#
-#         for filepath in filepaths:
-#             with self.assertRaisesRegex(ValidationError, r'Expected '):
-#                 test_format = SurpiSampleSheetFormat(filepath, mode='r')
-#                 test_format.validate()
+class TestSurpiSampleSheetFormat(TestPluginBase):
+    package = f'{__package_name__}.tests'
+
+    def test_surpisamplesheet_format_valid(self):
+        filenames = ['surpi_sample_info.txt']
+        filepaths = [self.get_data_path(filename)
+                     for filename in filenames]
+
+        for filepath in filepaths:
+            test_format = SurpiSampleSheetFormat(filepath, mode='r')
+            test_format.validate()
+
+    def test_surpisamplesheet_format_invalid(self):
+        filenames = [
+            # empty
+            'surpi_sample_info_empty.txt',
+            # missing column "sample"
+            'surpi_sample_info_missing_sample.txt',
+            # missing column "barcode"
+            'surpi_sample_info_missing_barcode.txt'
+        ]
+        filepaths = [self.get_data_path(filename)
+                     for filename in filenames]
+
+        for filepath in filepaths:
+            with self.assertRaisesRegex(ValidationError, r'Expected '):
+                test_format = SurpiSampleSheetFormat(filepath, mode='r')
+                test_format.validate()

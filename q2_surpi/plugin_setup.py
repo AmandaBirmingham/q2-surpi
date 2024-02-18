@@ -5,8 +5,7 @@ from qiime2.plugin import (Plugin, Citations)
 import q2_surpi
 from q2_surpi._formats_and_types import (
     SurpiCountTable, SurpiCountTableFormat, SurpiCountTableDirectoryFormat,
-    SurpiSampleSheet, SurpiSampleSheetFormat, SurpiSampleSheetDirectoryFormat,
-    FEATURE_ID_KEY)
+    SurpiSampleSheet, SurpiSampleSheetFormat, SurpiSampleSheetDirectoryFormat)
 
 
 plugin = Plugin(
@@ -61,7 +60,7 @@ def _2(ff: SurpiSampleSheetFormat) -> pandas.DataFrame:
 # )
 
 plugin.methods.register_function(
-    function=q2_surpi.extract_surpi_data,
+    function=q2_surpi.extract,
     name='Extract SURPI data for use in QIIME.',
     description=(
         'Extract SURPI data into a feature table and a feature taxonomy.'),

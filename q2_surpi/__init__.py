@@ -1,4 +1,4 @@
-from ._plugin import extract_surpi_data, extract_test
+from ._plugin import extract
 from ._formats_and_types import (
     SurpiCountTable, SurpiCountTableFormat, SurpiCountTableDirectoryFormat,
     SurpiSampleSheet, SurpiSampleSheetFormat, SurpiSampleSheetDirectoryFormat)
