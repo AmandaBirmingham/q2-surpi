@@ -51,8 +51,8 @@ def extract(
 
     # Generate the feature table
     surpi_feature_table_df = surpi_output.copy()
-    surpi_feature_table_df.drop(columns=[SPECIES_KEY, GENUS_KEY, FAMILY_KEY,
-                                        TAG_KEY], inplace=True)
+    surpi_feature_table_df.drop(
+        columns=[SPECIES_KEY, GENUS_KEY, FAMILY_KEY, TAG_KEY], inplace=True)
     surpi_feature_table_df[FEATURE_ID_KEY] = taxonomy.index
     surpi_feature_table_df = surpi_feature_table_df.set_index(FEATURE_ID_KEY)
     surpi_feature_table_df = surpi_feature_table_df.T

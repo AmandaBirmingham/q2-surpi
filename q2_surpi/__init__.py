@@ -16,3 +16,7 @@ __author__ = 'Amanda Birmingham'
 __email__ = 'abirmingham@ucsd.edu'
 __url__ = 'https://github.com/AmandaBirmingham/q2-surpi'
 __citations_fname__ = 'citations.bib'
+
+__all__ = ['extract', 'SurpiCountTable', 'SurpiCountTableFormat',
+           'SurpiCountTableDirectoryFormat', 'SurpiSampleSheet',
+           'SurpiSampleSheetFormat', 'SurpiSampleSheetDirectoryFormat']
