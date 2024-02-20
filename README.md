@@ -1,6 +1,10 @@
 # q2-surpi
 
-q2-surpi is a plugin supporting the import of SURPI results for use in QIIME 2.
+q2-surpi is a plugin that connects SURPI+ results to QIIME 2 for analysis. 
+The below workflow shows that q2-surpi acts as a converter, extracting 
+QIIME-formatted artifacts from SURPI+ outputs for use in downstream analyses.
+
+![q2-surpi workflow](q2-surpi_workflow.png)
 
 ## Installation
 
